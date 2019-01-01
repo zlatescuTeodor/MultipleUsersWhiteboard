@@ -48,6 +48,9 @@ public class Client {
 	private boolean squareOn;
 	private boolean eraserOn;
 	private boolean brushOn;
+	private boolean straightOn;
+	private boolean dottedOn;
+	private boolean dashedOn;
 
 	//the socket with which the user connects to the client
 	private Socket socket;
@@ -431,6 +434,31 @@ public class Client {
 	public BufferedImage getDrawingBuffer() {
 		return drawingBuffer;
 	}
+	
+	public void setStraight(boolean on) {
+    	this.straightOn = on;
+    }
+	
+	
+	public boolean getStraight() {
+    	return this.straightOn; 
+    }
+	public void setDotted(boolean on) {
+    	this.dottedOn = on;
+    }
+	
+	
+	public boolean getDotted() {
+    	return this.dottedOn; 
+    }
+	public void setDashed(boolean on) {
+    	this.dashedOn = on;
+    }
+	
+	
+	public boolean getDashed() {
+    	return this.dashedOn; 
+    }
 	
 	/**
 	 * Setter for SquareOn

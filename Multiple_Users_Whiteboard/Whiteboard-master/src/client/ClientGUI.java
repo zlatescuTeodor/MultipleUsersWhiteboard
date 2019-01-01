@@ -378,6 +378,7 @@ public class ClientGUI extends JFrame {
         JPanel brushBar = new JPanel();
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getColorsMenu());
+        menuBar.add(getBrushTypeMenu());
         brushBar.add(menuBar);
         brushBar.add(strokeButton);
         TitledBorder brushBarBorder = BorderFactory.createTitledBorder("Brush");
@@ -486,7 +487,8 @@ public class ClientGUI extends JFrame {
         brush.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (brush.isSelected()) {                    
+                if (brush.isSelected()) {  
+                	client.setStraight(true);
                 	square.setSelected(false);
                     ereser.setSelected(false);
                     client.setEraserOn(false);
@@ -685,6 +687,46 @@ public class ClientGUI extends JFrame {
         
         
         return mode;
+    }
+    
+    private JMenu getBrushTypeMenu() {
+    	final JMenu type = new JMenu("Type");
+        
+        
+        JMenuItem straightMenuItem = new JMenuItem("Straight");
+        straightMenuItem.addActionListener(new  ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                client.setStraight(true);
+                System.out.println("straight on");
+                client.setDotted(false);
+                client.setDashed(false);
+                
+            }});
+        JMenuItem dottedMenuItem = new JMenuItem("Dotted");
+        dottedMenuItem.addActionListener(new  ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	client.setStraight(false);
+                client.setDotted(true);
+                client.setDashed(false);
+                
+            }});
+        /*JMenuItem dashedMenuItem = new JMenuItem("Dashed");
+        dashedMenuItem.addActionListener(new  ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	client.setStraight(false);
+                client.setDotted(false);
+                client.setDashed(true);
+                
+            }});*/
+        type.add(straightMenuItem);
+        type.addSeparator();
+        type.add(dottedMenuItem);
+        //type.addSeparator();
+        //type.add(dashedMenuItem);
+        
+        type.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        
+        return type;
     }
 	
     /**
