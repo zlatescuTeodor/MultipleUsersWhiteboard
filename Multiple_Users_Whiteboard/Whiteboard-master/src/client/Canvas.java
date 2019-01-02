@@ -44,7 +44,8 @@ public class Canvas extends JPanel {
 		// Copy the drawing buffer to the screen.
 		g.drawImage(client.getDrawingBuffer(), 0, 0, null);
 	}
-
+	
+	
 
 	/**
 	 * Make the drawing buffer and draw some starting content for it.
@@ -119,6 +120,23 @@ public class Canvas extends JPanel {
 		this.repaint();
 	}
 	
+	public void saveMethod() {
+		BufferedImage bi = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB); 
+        Graphics g = bi.createGraphics();
+        this.paint(g);
+        g.dispose();
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            try{
+                ImageIO.write(bi,"png",file);
+                }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+	}
 	public void drawSquare(int x, int y, int x2, int y2, int color, float width) {
 		Graphics2D g = (Graphics2D) client.getDrawingBuffer().getGraphics();
 		Color colorObject = new Color(color);

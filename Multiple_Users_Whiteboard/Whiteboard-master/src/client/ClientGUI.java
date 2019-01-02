@@ -532,12 +532,29 @@ public class ClientGUI extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getUsersMenu());
         menuBar.add(getBoardsMenu());
+        menuBar.add(getSaveMenu());
         menuBar.add(Box.createHorizontalGlue());
         currentUserBoard = getCurrentUserBoard();
         menuBar.add(currentUserBoard);
         menuBar.add(Box.createHorizontalGlue());
         this.setJMenuBar(menuBar);
     }
+	
+	private JMenu getSaveMenu() {
+		
+		 final JMenu mode = new JMenu("Save");
+	        
+	        
+	        JMenuItem drawMenuItem = new JMenuItem("Save As...");
+	        drawMenuItem.addActionListener(new  ActionListener() {
+	            public void actionPerformed(ActionEvent event) {
+	                canvas.saveMethod();
+	            }});
+	        
+	        mode.add(drawMenuItem);
+	        
+	        return mode;
+	}
 	
 	/**
      * Add the users menu to the menu mar
