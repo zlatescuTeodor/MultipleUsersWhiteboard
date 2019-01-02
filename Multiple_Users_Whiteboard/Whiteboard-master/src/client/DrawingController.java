@@ -99,7 +99,7 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 		if(client.getSquareOn() == true) {
 			Color color = client.getCurrentColor();
 			setEndPoint(e.getX(), e.getY());
-			client.getCanvas().drawSquare(x, y, x2, y2, color.getRGB(), client.getCurrentWidth());
+			client.getCanvas().drawSquareAndCall(x, y, x2, y2, color.getRGB(), client.getCurrentWidth());
 		}
 	}
 	

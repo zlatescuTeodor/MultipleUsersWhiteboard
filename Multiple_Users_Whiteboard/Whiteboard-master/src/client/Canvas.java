@@ -84,7 +84,9 @@ public class Canvas extends JPanel {
 		
 		this.repaint();
 	}
-	
+	/**
+	 * Draw a selected image from file and put it on server
+	 */
 	protected void fillWithImageAndCall(String ImagePath) {
 		fillWithImage(ImagePath);
 		try {
@@ -158,6 +160,14 @@ public class Canvas extends JPanel {
          g.drawRect(px, py, pw, ph);
          this.repaint();
 		
+	}
+	protected void drawSquareAndCall(int x1, int y1, int x2, int y2, int color, float width) {
+		drawSquare(x1, y1, x2, y2, color, width);
+		try {
+			client.makeDrawRequest("drawSquare "+x1+" "+y1+" "+x2+" "+y2+" "+(color+16777216)+" "+width);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
