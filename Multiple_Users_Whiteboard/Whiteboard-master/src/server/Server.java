@@ -15,14 +15,12 @@ import command.Command;
 
 
 /**
- * Server for collaborative whiteboard application
+ * Server for whiteboard application
  * 
  * Concurrency Argument:
  *   - All board objects are thread safe (see Board.java)
  *   - All methods that modify this objects data representation are 
  *     made concurrent via the monitor pattern
- * 
- * @author Josh
  */
 public class Server {
     

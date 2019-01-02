@@ -14,9 +14,12 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 	// draw a line segment from that last point to the point of the next mouse event.
 	private int lastX, lastY;
 	private final Client client;
+	// coordinates for drawing a square
 	private int x, y, x2, y2;
+	// time for dotted line
 	private int i = 0;
 	private boolean drawOn = true;
+	
 	public DrawingController(Client client) {
 		this.client = client;
 	}
@@ -49,7 +52,7 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 
 	/*
 	 * When mouse moves while a button is pressed down,
-	 * draw a line segment.
+	 * draw a line segment or a square
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if(client.getSquareOn() == false) {
@@ -60,12 +63,10 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 				Color color = client.getCurrentColor();
 				if (client.getEraserOn()) { color = Color.white; client.setStraight(true);}
 				
-				//client.getCanvas().drawLineSegmentAndCall(lastX, lastY, x, y, color.getRGB(), client.getCurrentWidth());
-				// to make up for the height of the menu
+				
 				if(client.getStraight()==true) {
 					client.getCanvas().drawLineSegmentAndCall(lastX, lastY, x, y, color.getRGB(), client.getCurrentWidth());
-					System.out.println("is straight");
-					
+					System.out.println("is straight");					
 				}
 				else
 					if(client.getDotted()) {
@@ -88,14 +89,12 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 			}
 			else {
 				setEndPoint(e.getX(), e.getY());
-				//client.getCanvas().drawDragSquare(x, y, x2, y2);
 			}
 		}
 	}
-
-	// Ignore all these other mouse events.
-	public void mouseMoved(MouseEvent e) { }
-	public void mouseClicked(MouseEvent e) { }
+	/*
+	 * When mouse is realeased draw a rectangle
+	 */
 	public void mouseReleased(MouseEvent e) {
 		if(client.getSquareOn() == true) {
 			Color color = client.getCurrentColor();
@@ -103,6 +102,9 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 			client.getCanvas().drawSquare(x, y, x2, y2, color.getRGB(), client.getCurrentWidth());
 		}
 	}
+	
+	public void mouseMoved(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e) { }
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 

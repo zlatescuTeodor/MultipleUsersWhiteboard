@@ -14,19 +14,21 @@ import java.util.Hashtable;
 import javax.swing.SwingUtilities;
 
 import command.Command;
-
+/*
+ * Client class that controls what one user does on the Board(ClientGUI)
+ */
 public class Client {
 
 
-	//the username the client will go by in this session
-	//must be unique; no other clients can have this user name
+	
 	private String username;
-	//the name of the board currently being drawn upon
+	
 	private String currentBoardName;
 	//the color the user is currently drawing in
 	private Color currentColor = Color.BLACK;
 	//the width of the brush the user is currently drawing with
 	private float currentWidth = 10;
+	
 	private BufferedImage drawingBuffer;
 
 	// used for server-client communications:
@@ -44,6 +46,7 @@ public class Client {
 	private Tracker usersUpdated = new Tracker(false);
 	private String[] users = {};
 	private Tracker exitComplete = new Tracker(false);
+	//booleans for different modes of painting
 	private boolean isErasing;
 	private boolean squareOn;
 	private boolean eraserOn;

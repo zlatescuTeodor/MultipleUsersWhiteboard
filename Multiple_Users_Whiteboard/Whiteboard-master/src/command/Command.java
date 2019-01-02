@@ -5,17 +5,17 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import client.Canvas;
-
+/**
+ * Creates command from token array passed that has already been determined to be a draw command
+ * @param elements: Elements of command in format ["draw", "boardName", "command", "arg1", "arg2", "arg3", ...]
+ * @return a Command object with the command and the arguments
+ */
 public class Command {
     private final String command;
     private final String[] arguments;
     private final String boardName;
     
-    /**
-     * Creates command from token array passed that has already been determined to be a draw command
-     * @param elements: Elements of command in format ["draw", "boardName", "command", "arg1", "arg2", "arg3", ...]
-     * @return a Command object with the command and the arguments
-     */
+    
     public Command(String[] elements) {
         String[] arguments = new String[elements.length-3];
         for (int i=3; i<elements.length;i++) {
@@ -50,7 +50,10 @@ public class Command {
         for (int i=0; i<methods.length;i++) {
             if (methods[i].getName().equals(command)) {
                 method = methods[i];
+                System.out.println(methods[i].getName());
             }
+            if (methods[i].getName().equals("saveMethod")) 
+            	System.out.println(methods[i].getName());
         }
         if (method == null) {
             throw new RuntimeException("Command "+command+" not found.");

@@ -110,7 +110,7 @@ public class ServerProtocol implements Runnable {
      */
     private String handleRequest(String input) throws IOException, IllegalArgumentException {
         System.out.println(input);
-    	String nameReg = "[a-zA-Z0-9\\.]+";
+    	String nameReg = "[a-zA-Z0-9\\.\\:\\\\]+";
     	String regex = "(boards)|(newBoard "+nameReg+")|"
     			+ "(switch "+nameReg+" "+nameReg+" "+nameReg+")|"
     			+ "(exit "+nameReg+")|(users "+nameReg+")|"

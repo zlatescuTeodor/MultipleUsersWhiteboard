@@ -64,12 +64,12 @@ public class Canvas extends JPanel {
 		g.setColor(Color.WHITE);
 		g.fillRect(0,  0,  getWidth(), getHeight());
 
-		// IMPORTANT!  every time we draw on the internal drawing buffer, we
-		// have to notify Swing to repaint this component on the screen.
 		this.repaint();
 	}
-	
-	protected void fillWithImage(String ImagePath) {
+	/**
+	 * Draw a selected image from file
+	 */
+	public void fillWithImage(String ImagePath) {
 		
 		final Graphics2D g = (Graphics2D) client.getDrawingBuffer().getGraphics();
 		final BufferedImage img;
@@ -82,13 +82,16 @@ public class Canvas extends JPanel {
             ex.printStackTrace();
         }
 		
-        
-		//g.setColor(Color.WHITE);
-		//g.fillRect(0,  0,  getWidth(), getHeight());
-
-		// IMPORTANT!  every time we draw on the internal drawing buffer, we
-		// have to notify Swing to repaint this component on the screen.
 		this.repaint();
+	}
+	
+	protected void fillWithImageAndCall(String ImagePath) {
+		fillWithImage(ImagePath);
+		try {
+			client.makeDrawRequest("fillWithImage "+ImagePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -115,11 +118,12 @@ public class Canvas extends JPanel {
 		g.setStroke(new BasicStroke(width));
 		g.drawLine(x1, y1, x2, y2);
 
-		// IMPORTANT!  every time we draw on the internal drawing buffer, we
-		// have to notify Swing to repaint this component on the screen.
+		
 		this.repaint();
 	}
-	
+	/**
+	 * Save the canvas as .png on file
+	 */
 	public void saveMethod() {
 		BufferedImage bi = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB); 
         Graphics g = bi.createGraphics();
@@ -137,6 +141,11 @@ public class Canvas extends JPanel {
             }
         }
 	}
+	
+	/**
+	 * Draw a rectagle
+	 */
+	
 	public void drawSquare(int x, int y, int x2, int y2, int color, float width) {
 		Graphics2D g = (Graphics2D) client.getDrawingBuffer().getGraphics();
 		Color colorObject = new Color(color);
@@ -151,17 +160,6 @@ public class Canvas extends JPanel {
 		
 	}
 	
-	public void drawDragSquare(int x, int y, int x2, int y2) {
-		Graphics2D g = (Graphics2D) client.getDrawingBuffer().getGraphics();
-		g.setColor(Color.RED);
-		 int px = Math.min(x,x2);
-         int py = Math.min(y,y2);
-         int pw=Math.abs(x-x2);
-         int ph=Math.abs(y-y2);
-         g.drawRect(px, py, pw, ph);
-         this.repaint();
-		
-	}
 	
 	/**
 	 * Updates the label showing the current username and the current board name

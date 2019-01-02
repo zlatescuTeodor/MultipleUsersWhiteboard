@@ -517,7 +517,7 @@ public class ClientGUI extends JFrame {
             if(result == JFileChooser.APPROVE_OPTION){
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
-                canvas.fillWithImage(path);
+                canvas.fillWithImageAndCall(path);
             }
              //if the user click on save in Jfilechooser
 
