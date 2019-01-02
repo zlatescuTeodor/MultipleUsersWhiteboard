@@ -161,6 +161,9 @@ public class Canvas extends JPanel {
          this.repaint();
 		
 	}
+	/**
+	 * Draw a rectagle and call
+	 */
 	protected void drawSquareAndCall(int x1, int y1, int x2, int y2, int color, float width) {
 		drawSquare(x1, y1, x2, y2, color, width);
 		try {

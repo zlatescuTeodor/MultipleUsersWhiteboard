@@ -52,8 +52,6 @@ public class Command {
                 method = methods[i];
                 System.out.println(methods[i].getName());
             }
-            if (methods[i].getName().equals("saveMethod")) 
-            	System.out.println(methods[i].getName());
         }
         if (method == null) {
             throw new RuntimeException("Command "+command+" not found.");
