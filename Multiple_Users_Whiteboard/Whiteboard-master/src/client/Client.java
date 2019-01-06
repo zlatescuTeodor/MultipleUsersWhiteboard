@@ -54,6 +54,9 @@ public class Client {
 	private boolean straightOn;
 	private boolean dottedOn;
 	private boolean dashedOn;
+	private boolean arialOn = true;
+	private boolean comicOn;
+	private boolean textOn;
 
 	//the socket with which the user connects to the client
 	private Socket socket;
@@ -438,6 +441,28 @@ public class Client {
 		return drawingBuffer;
 	}
 	
+	public void setFontArial(boolean on) {
+    	this.arialOn = on;
+    }
+	
+	public boolean getFontArial() {
+    	return this.arialOn; 
+    }
+	
+	public void setFontComic(boolean on) {
+    	this.comicOn = on;
+    }
+	
+	public boolean getFontComic() {
+    	return this.comicOn; 
+    }
+	public void setText(boolean on) {
+    	this.textOn = on;
+    }
+	
+	public boolean getText() {
+    	return this.textOn; 
+    }
 	public void setStraight(boolean on) {
     	this.straightOn = on;
     }

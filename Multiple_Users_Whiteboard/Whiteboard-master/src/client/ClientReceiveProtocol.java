@@ -64,7 +64,7 @@ public class ClientReceiveProtocol implements Runnable {
      * @throws IOException 
      */
     private void handleRequest(String input) throws IOException, IllegalArgumentException {
-    	String nameReg = "[a-zA-Z0-9\\.\\:\\\\]+";
+    	String nameReg = "[a-zA-Z0-9\\.\\:\\\\\\[\\]\\=\\,]+";
     	String regex = "(draw "+nameReg+"( "+nameReg+")+)|"
 		    			+ "(users( "+nameReg+")+)|"
 						+ "(exit "+nameReg+")|"
@@ -125,14 +125,6 @@ public class ClientReceiveProtocol implements Runnable {
     	isRunning = false;
     }
     
-    /**
-     * For testing purposes. Calls handleRequest on input
-     * @param input
-     * @throws IOException 
-     * @throws IllegalArgumentException 
-     */
-    public void testHandleRequest(String input) throws IllegalArgumentException, IOException {
-        handleRequest(input);
-    }
+    
     
 }

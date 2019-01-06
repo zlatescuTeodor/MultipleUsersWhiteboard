@@ -1,5 +1,6 @@
 package command;
 
+import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -58,7 +59,16 @@ public class Command {
         } else {
             Class<?>[] parameters = method.getParameterTypes();
             if (parameters.length != arguments.length) {
+            	System.out.println("parameters" + parameters.length);
+            	for (int i=0; i<parameters.length;i++) {
+                	System.out.println(parameters[i].getName());
+                }
+            	System.out.println("argumets" + arguments.length);
+            	for (int i=0; i<arguments.length;i++) {
+                	System.out.println(arguments[i]);
+                }
                 throw new RuntimeException("Incorrect number of arguments for given method.");
+                
             } else {
                 Object[] typedArgs = new Object[arguments.length];
                 for (int i=0; i<typedArgs.length;i++) {
@@ -66,6 +76,8 @@ public class Command {
                         typedArgs[i] = Integer.valueOf(arguments[i]);
                     } else if(parameters[i].equals(float.class)) {
                         typedArgs[i] = Float.valueOf(arguments[i]);
+                    } else if(parameters[i].equals(Color.class)) {
+                        typedArgs[i] = Color.decode(arguments[i]);
                     } else if(parameters[i].equals(double.class)) {
                         typedArgs[i] = Double.valueOf(arguments[i]);
                     } else if(parameters[i].equals(long.class)) {

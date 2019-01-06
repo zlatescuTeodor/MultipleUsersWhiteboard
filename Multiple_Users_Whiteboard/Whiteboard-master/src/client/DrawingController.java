@@ -1,9 +1,12 @@
 package client;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 
 /*
@@ -19,6 +22,10 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 	// time for dotted line
 	private int i = 0;
 	private boolean drawOn = true;
+	
+	ArrayList<Shape> shapes = new ArrayList<Shape>();
+
+    Point startDrag, endDrag;
 	
 	public DrawingController(Client client) {
 		this.client = client;
@@ -38,15 +45,37 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 	 */
 	public void mousePressed(MouseEvent e) {
 		System.out.println("square " + Boolean.toString(client.getSquareOn()) );
+		System.out.println("text" + Boolean.toString(client.getText()));
 		if(client.getSquareOn() == false) {
+			if(client.getText()==true)
+			{
+				lastX = e.getX();
+				lastY = e.getY();
+				String textFont = new String();
+				if(client.getFontArial() == true)
+					textFont = "Arial";
+				else
+					if(client.getFontComic() == true)
+						textFont = "Comic Sans MS";
+				
+				Color color = client.getCurrentColor();
+		        
+				client.getCanvas().drawText(textFont, color.getRGB(),(int)client.getCurrentWidth(), 0, lastX,  lastY);
+			}
+			else
+				
 			if(client.getBrushOn()==true) {
 				lastX = e.getX();
 				lastY = e.getY();
 			}
 		}
+			
 		else
 		{
 			setStartPoint(e.getX(), e.getY());
+			startDrag = new Point(e.getX(), e.getY());
+	        endDrag = startDrag;
+	        client.getCanvas().newDrawSquare(startDrag, endDrag);
 		}
 	}
 
@@ -88,7 +117,9 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 				lastY = y;
 			}
 			else {
+				endDrag = new Point(e.getX(), e.getY());
 				setEndPoint(e.getX(), e.getY());
+				//client.getCanvas().newDrawSquare(startDrag, endDrag);
 			}
 		}
 	}
@@ -100,6 +131,8 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 			Color color = client.getCurrentColor();
 			setEndPoint(e.getX(), e.getY());
 			client.getCanvas().drawSquareAndCall(x, y, x2, y2, color.getRGB(), client.getCurrentWidth());
+	          startDrag = null;
+	          endDrag = null;
 		}
 	}
 	

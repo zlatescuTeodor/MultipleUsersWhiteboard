@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -67,6 +68,7 @@ public class ClientGUI extends JFrame {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 600;
 	private JToggleButton imageToggle;
+	private JToggleButton text;
 	private JToggleButton cropToggle;
 	
 	private JToggleButton brush;
@@ -76,9 +78,7 @@ public class ClientGUI extends JFrame {
 	private JToggleButton triangle;
 	private JToggleButton circle;
 	
-	private boolean squareOn;
-	private boolean triangleOn;
-	private boolean circleOn;
+	
 	
 	
 	private JButton strokeButton;
@@ -100,9 +100,6 @@ public class ClientGUI extends JFrame {
     private JPanel sidebar;
     
     private Canvas canvas;
-    
-    
-    
     
     
     /**
@@ -358,7 +355,12 @@ public class ClientGUI extends JFrame {
         this.ereser.setPreferredSize(new Dimension(40,40));
         this.ereser.setFocusPainted(false);
         
-        this.strokeButton = new JButton("Stroke");
+        this.text = new JToggleButton(new ImageIcon(((new ImageIcon("resources/text.png")).getImage())
+                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));  
+        this.text.setPreferredSize(new Dimension(40,40));
+        this.text.setFocusPainted(false);
+        
+        this.strokeButton = new JButton("Stroke/Text");
         this.strokeButton.setFocusPainted(false);
         this.strokeButton.setHorizontalAlignment(SwingConstants.LEFT);
         
@@ -385,8 +387,12 @@ public class ClientGUI extends JFrame {
         brushBar.setBorder(brushBarBorder);
         
         
-        
         JPanel textBar = new JPanel();
+        JMenuBar fontBar = new JMenuBar();
+        fontBar.add(getFontMenu());
+        textBar.add(text);
+        textBar.add(fontBar);
+        
         TitledBorder textBorder = BorderFactory.createTitledBorder("Text");
         textBar.setBorder(textBorder);
         
@@ -447,6 +453,13 @@ public class ClientGUI extends JFrame {
             }
         });
         
+        /*text.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setText(e);
+            }
+        });*/
+        
         
         square.addItemListener(new ItemListener() {
             @Override
@@ -454,9 +467,11 @@ public class ClientGUI extends JFrame {
                 if (square.isSelected()) {
                 	brush.setSelected(false);
                 	ereser.setSelected(false);
+                	text.setSelected(false);
                 	client.setSquareOn(true);
                 	client.setEraserOn(false);
                     client.setBrushOn(false);
+                    client.setText(false);
                 	System.out.println("square press enable" + Boolean.toString(client.getSquareOn()) );
                 }
                 else {       
@@ -474,9 +489,11 @@ public class ClientGUI extends JFrame {
                 if (ereser.isSelected()) {                    
                     square.setSelected(false);
                     brush.setSelected(false);
+                    text.setSelected(false);
                     client.setEraserOn(true);
                     client.setBrushOn(true);
                     client.setSquareOn(false);
+                    client.setText(false);
                 }
                 else {
                 	client.setBrushOn(false);
@@ -490,14 +507,34 @@ public class ClientGUI extends JFrame {
                 if (brush.isSelected()) {  
                 	client.setStraight(true);
                 	square.setSelected(false);
+                	text.setSelected(false);
                     ereser.setSelected(false);
                     client.setEraserOn(false);
                     client.setBrushOn(true);
                     client.setSquareOn(false);
+                    client.setText(false);
                    
                 } 
                 else {
                 	client.setBrushOn(false);
+                }
+            }
+        });
+        text.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (text.isSelected()) {  
+                	client.setStraight(true);
+                	square.setSelected(false);
+                    ereser.setSelected(false);
+                    client.setEraserOn(false);
+                    client.setBrushOn(false);
+                    client.setText(true);
+                    client.setSquareOn(false);
+                   
+                } 
+                else {
+                	client.setText(false);
                 }
             }
         });
@@ -525,9 +562,19 @@ public class ClientGUI extends JFrame {
                 System.out.println("No File Select");
             }
           }
-    	
-    	
 	}
+	/*private void setText(ActionEvent e) {
+		String textFont = new String();
+		if(client.getFontArial() == true)
+			textFont = "Arial Black";
+		else
+			if(client.getFontComic() == true)
+				textFont = "Comic Sans MS";
+		
+		Color color = client.getCurrentColor();
+        
+        canvas.drawText(textFont, (int)client.getCurrentWidth(), color);
+	}*/
 	private void addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getUsersMenu());
@@ -672,39 +719,44 @@ public class ClientGUI extends JFrame {
         
         return boards;
     }
-	
-	/**
+    /**
      * Add the mode menu to the menu mar
      * @return JMenu representing the mode menu
      */
-    private JMenu getModeMenu() {
-        // Icon next to Mode
-        final ImageIcon eraserIcon = new ImageIcon("../whiteboard/docs/icons/eraser.png");
-        final ImageIcon pencilIcon = new ImageIcon("../whiteboard/docs/icons/pencil.png");
+    
+    
+    private JMenu getFontMenu() {
+    	final JMenu type = new JMenu("Font");
         
-        final JMenu mode = new JMenu("Mode");
-        mode.setIcon(pencilIcon);
         
-        JMenuItem drawMenuItem = new JMenuItem("Draw", pencilIcon);
-        drawMenuItem.addActionListener(new  ActionListener() {
+        JMenuItem arialMenuItem = new JMenuItem("Arial");
+        arialMenuItem.addActionListener(new  ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                client.setIsErasing(false);
-                mode.setIcon(pencilIcon);
+                client.setFontArial(true);
+                client.setFontComic(false);
+                
             }});
-        JMenuItem eraseMenuItem = new JMenuItem("Erase", eraserIcon);
-        eraseMenuItem.addActionListener(new  ActionListener() {
+        JMenuItem comicMenuItem = new JMenuItem("Comic Sans");
+        comicMenuItem.addActionListener(new  ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                client.setIsErasing(true);
-                mode.setIcon(eraserIcon);
+            	client.setFontArial(false);
+                client.setFontComic(true);
+                
             }});
-        mode.add(drawMenuItem);
-        mode.addSeparator();
-        mode.add(eraseMenuItem);
         
+        type.add(arialMenuItem);
+        type.addSeparator();
+        type.add(comicMenuItem);
         
+        type.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
         
-        return mode;
+        return type;
     }
+	/**
+     * Add the brushtype menu to the menu mar
+     * @return JMenu representing the brushtype menu
+     */
+    
     
     private JMenu getBrushTypeMenu() {
     	final JMenu type = new JMenu("Type");
@@ -727,19 +779,10 @@ public class ClientGUI extends JFrame {
                 client.setDashed(false);
                 
             }});
-        /*JMenuItem dashedMenuItem = new JMenuItem("Dashed");
-        dashedMenuItem.addActionListener(new  ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-            	client.setStraight(false);
-                client.setDotted(false);
-                client.setDashed(true);
-                
-            }});*/
+        
         type.add(straightMenuItem);
         type.addSeparator();
         type.add(dottedMenuItem);
-        //type.addSeparator();
-        //type.add(dashedMenuItem);
         
         type.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
         
