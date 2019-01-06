@@ -79,16 +79,17 @@ public class ClientGUI extends JFrame {
 	private JToggleButton circle;
 	
 	
-	
-	
 	private JButton strokeButton;
+	
 	// Start Dialog GUI objects
 	private JDialog dialog;
+	private JDialog addUsername;
 	private DefaultListModel<String> boardListModel;
 	private JLabel newBoardLabel;
 	private JTextField newBoard;
 	private JList<String> boardList;
 	private Container dialogContainer;
+	private Container addUsernameContainer;
 	private GroupLayout layout;
 	private JTextField usernameTextField;
 	private JLabel usernameLabel;
@@ -108,7 +109,8 @@ public class ClientGUI extends JFrame {
      */
 	public ClientGUI(Client client) {
 		this.client = client;
-		startDialog();  
+		startDialog(); 
+		addUsername();
 	}
 	
 	/**
@@ -123,6 +125,24 @@ public class ClientGUI extends JFrame {
         setDialogActionListeners(); 
     }
     
+    private void addUsername() {
+    	addUsername = new JDialog();
+    	addUsername.setTitle("Welcome to Whiteboard");
+    	addUsername.setResizable(false);
+    	addUsername.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    	setAddUsernameLayout();
+        //setAddUsernameActionListeners(); 
+    }
+    public void setAddUsernameLayout() {
+    	addUsernameContainer = new Container();
+        layout = new GroupLayout(addUsernameContainer);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        addUsernameContainer.setLayout(layout);
+        usernameTextField = new JTextField(10);
+        usernameTextField.setName("username");
+        usernameLabel = new JLabel("Username:");
+    }
     /**
      * Sets layout for start dialog
      */

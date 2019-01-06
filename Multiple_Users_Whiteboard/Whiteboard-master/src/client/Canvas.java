@@ -37,9 +37,7 @@ public class Canvas extends JPanel {
 	public Canvas(Client client) {
 		this.client = client;
 	}
-	/**
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		// If this is the first time paintComponent() is being called,
@@ -104,8 +102,7 @@ public class Canvas extends JPanel {
 	}
 
 	/**
-	 * Draw a line between two points (x1, y1) and (x2, y2), specified in
-	 * pixels relative to the upper-left corner of the drawing buffer.
+	 * Draw a line between and send it to every client
 	 */
 	protected void drawLineSegmentAndCall(int x1, int y1, int x2, int y2, int color, float width) {
 		drawLineSegment(x1, y1, x2, y2, color, width);
@@ -161,7 +158,7 @@ public class Canvas extends JPanel {
             }
         }
 	}
-	
+	//tring to make the square show where it is drawn
 	public void newDrawSquare(Point startDrag, Point endDrag) {
 		 	Graphics2D g2 = (Graphics2D) client.getDrawingBuffer().getGraphics();
 	      g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -222,6 +219,9 @@ public class Canvas extends JPanel {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Edit where the text will be draw
+	 */
 	public void drawText(String textFont,int color, int width, int idfk, int x,  int y) {
 		String text= "";
 		text = JOptionPane.showInputDialog(this, "Text to add", "Text");
@@ -243,10 +243,7 @@ public class Canvas extends JPanel {
 			int maxDim = 550 - x - metrics.stringWidth("    ");
 			if(metrics.stringWidth(text.substring(j, i)) >= maxDim) {
 				Color colorObject = new Color(color);
-				/*g.setColor(colorObject);
-				g.setFont(font);
-				g.drawString(textBuffer, x, (y + k));
-				//this.repaint();*/
+				
 				drawOnlyText(textBuffer,textFont, color, width, x, y, k);
 				drawOnlyTextAndCall(textBuffer,textFont, color, width, x, y, k);
 				System.out.println("draw");
@@ -257,10 +254,6 @@ public class Canvas extends JPanel {
 			else if(metrics.stringWidth( text.substring(j, text.length()-1)) < (550 - x) ) {
 				textBuffer = text.substring(j, text.length());
 				Color colorObject = new Color(color);
-				/*g.setColor(colorObject);
-				g.setFont(font);
-				g.drawString(textBuffer, x, (y + k));
-				this.repaint();*/
 				drawOnlyText(textBuffer,textFont, color, width, x, y, k);
 				drawOnlyTextAndCall(textBuffer,textFont, color, width, x, y, k);
 				System.out.println("draw");
@@ -269,9 +262,11 @@ public class Canvas extends JPanel {
 			i++;
 			
 		}
-		//g.dispose();
 		
 	}
+	/**
+	 * Acttually draw text and call
+	 */
 	public void drawOnlyTextAndCall(String textBuffer, String textFont, int color, int width, int x, int y, int k) {
 		
 		try {
@@ -280,6 +275,9 @@ public class Canvas extends JPanel {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Acttually draw text
+	 */
 	public void drawOnlyText(String textBuffer, String textFont, int color, int width, int x, int y, int k) {
 		Graphics2D g = (Graphics2D) client.getDrawingBuffer().getGraphics();
 		Color colorObject = new Color(color);
@@ -288,7 +286,6 @@ public class Canvas extends JPanel {
 		g.setFont(font);
 		g.drawString(textBuffer, x, (y + k));
 		this.repaint();
-		
 	}
 	
 	/**
