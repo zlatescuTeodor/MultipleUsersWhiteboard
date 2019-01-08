@@ -56,7 +56,7 @@ public class DrawingController implements MouseListener, MouseMotionListener {
 					textFont = "Arial";
 				else
 					if(client.getFontComic() == true)
-						textFont = "Comic Sans MS";
+						textFont = "Serif";
 				
 				Color color = client.getCurrentColor();
 		        

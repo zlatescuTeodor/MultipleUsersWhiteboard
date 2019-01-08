@@ -79,17 +79,16 @@ public class ClientGUI extends JFrame {
 	private JToggleButton circle;
 	
 	
-	private JButton strokeButton;
 	
+	
+	private JButton strokeButton;
 	// Start Dialog GUI objects
 	private JDialog dialog;
-	private JDialog addUsername;
 	private DefaultListModel<String> boardListModel;
 	private JLabel newBoardLabel;
 	private JTextField newBoard;
 	private JList<String> boardList;
 	private Container dialogContainer;
-	private Container addUsernameContainer;
 	private GroupLayout layout;
 	private JTextField usernameTextField;
 	private JLabel usernameLabel;
@@ -109,8 +108,7 @@ public class ClientGUI extends JFrame {
      */
 	public ClientGUI(Client client) {
 		this.client = client;
-		startDialog(); 
-		addUsername();
+		startDialog();  
 	}
 	
 	/**
@@ -125,24 +123,6 @@ public class ClientGUI extends JFrame {
         setDialogActionListeners(); 
     }
     
-    private void addUsername() {
-    	addUsername = new JDialog();
-    	addUsername.setTitle("Welcome to Whiteboard");
-    	addUsername.setResizable(false);
-    	addUsername.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    	setAddUsernameLayout();
-        //setAddUsernameActionListeners(); 
-    }
-    public void setAddUsernameLayout() {
-    	addUsernameContainer = new Container();
-        layout = new GroupLayout(addUsernameContainer);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-        addUsernameContainer.setLayout(layout);
-        usernameTextField = new JTextField(10);
-        usernameTextField.setName("username");
-        usernameLabel = new JLabel("Username:");
-    }
     /**
      * Sets layout for start dialog
      */
@@ -473,13 +453,6 @@ public class ClientGUI extends JFrame {
             }
         });
         
-        /*text.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setText(e);
-            }
-        });*/
-        
         
         square.addItemListener(new ItemListener() {
             @Override
@@ -583,18 +556,7 @@ public class ClientGUI extends JFrame {
             }
           }
 	}
-	/*private void setText(ActionEvent e) {
-		String textFont = new String();
-		if(client.getFontArial() == true)
-			textFont = "Arial Black";
-		else
-			if(client.getFontComic() == true)
-				textFont = "Comic Sans MS";
-		
-		Color color = client.getCurrentColor();
-        
-        canvas.drawText(textFont, (int)client.getCurrentWidth(), color);
-	}*/
+	
 	private void addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getUsersMenu());
@@ -756,7 +718,7 @@ public class ClientGUI extends JFrame {
                 client.setFontComic(false);
                 
             }});
-        JMenuItem comicMenuItem = new JMenuItem("Comic Sans");
+        JMenuItem comicMenuItem = new JMenuItem("Serif");
         comicMenuItem.addActionListener(new  ActionListener() {
             public void actionPerformed(ActionEvent event) {
             	client.setFontArial(false);
