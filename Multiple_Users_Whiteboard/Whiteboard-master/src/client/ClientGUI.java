@@ -324,26 +324,26 @@ public class ClientGUI extends JFrame {
                 .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));     
         this.imageToggle.setPreferredSize(new Dimension(40,40));
         this.imageToggle.setFocusPainted(false);
-        
-        this.cropToggle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/crop.png")).getImage())
-                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
-        this.cropToggle.setPreferredSize(new Dimension(40,40));
-        this.cropToggle.setFocusPainted(false);
-        
+//        
+//        this.cropToggle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/crop.png")).getImage())
+//                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
+//        this.cropToggle.setPreferredSize(new Dimension(40,40));
+//        this.cropToggle.setFocusPainted(false);
+//        
         this.square = new JToggleButton(new ImageIcon(((new ImageIcon("resources/square.png")).getImage())
-                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
+               .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
         this.square.setPreferredSize(new Dimension(40,40));
         this.square.setFocusPainted(false);
-        
-        this.triangle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/triangle.png")).getImage())
-                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
-        this.triangle.setPreferredSize(new Dimension(40,40));
-        this.triangle.setFocusPainted(false);
-        
-        this.circle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/circle.png")).getImage())
-                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
-        this.circle.setPreferredSize(new Dimension(40,40));
-        this.circle.setFocusPainted(false);
+//        
+//        this.triangle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/triangle.png")).getImage())
+//                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
+//        this.triangle.setPreferredSize(new Dimension(40,40));
+//        this.triangle.setFocusPainted(false);
+//        
+//        this.circle = new JToggleButton(new ImageIcon(((new ImageIcon("resources/circle.png")).getImage())
+//                .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
+//        this.circle.setPreferredSize(new Dimension(40,40));
+//        this.circle.setFocusPainted(false);
         
         this.brush = new JToggleButton(new ImageIcon(((new ImageIcon("resources/brushIcon.png")).getImage())
                 .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH))); 
@@ -367,7 +367,7 @@ public class ClientGUI extends JFrame {
         
         JPanel imageBar = new JPanel();
         imageBar.add(imageToggle);
-        imageBar.add(cropToggle);
+        //imageBar.add(cropToggle);
         TitledBorder imageBorder = BorderFactory.createTitledBorder("Image Editing");
         imageBar.setBorder(imageBorder);
         
@@ -398,8 +398,8 @@ public class ClientGUI extends JFrame {
         
         JPanel shapesBar = new JPanel();
         shapesBar.add(square);
-        shapesBar.add(triangle);
-        shapesBar.add(circle);
+        //shapesBar.add(triangle);
+       // shapesBar.add(circle);
         TitledBorder shapesBorder = BorderFactory.createTitledBorder("Shapes");
         shapesBar.setBorder(shapesBorder);
         
